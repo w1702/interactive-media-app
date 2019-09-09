@@ -1,14 +1,19 @@
 import java.util.*;
-
+    
     private List<Particle> particles;
     private int counter;
     private int choice;
+    private ReactionDecider reactionDecider;
 
     public void setup () {
         particles = new ArrayList<Particle>();
         counter = 0;
         choice = 0;
+        reactionDecider = new ReactionDecider();
         size(800,600);
+
+        /* EXAMPLE OF HOW TO USE A CLASS THROUGH A PUBLIC METHOD */
+        System.out.println(reactionDecider.getReaction("RED", "BLUE")); // todo: remove this afterwards
     }
 
     public void keyPressed(){
