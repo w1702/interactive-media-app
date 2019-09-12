@@ -3,17 +3,17 @@ import java.util.*;
     private List<Particle> particles;
     private int counter;
     private int choice;
-    private ReactionDecider reactionDecider;
+    private ReactionData reactionData;
 
     public void setup () {
         particles = new ArrayList<Particle>();
         counter = 0;
         choice = 0;
-        reactionDecider = new ReactionDecider();
+        reactionData = new ReactionData();
         size(800,600);
 
         /* EXAMPLE OF HOW TO USE A CLASS THROUGH A PUBLIC METHOD */
-        System.out.println(reactionDecider.getReaction("RED", "BLUE")); // todo: remove this afterwards
+        System.out.println(reactionData.getReaction("Blue", "Green"));
     }
 
     public void keyPressed(){
@@ -38,7 +38,7 @@ import java.util.*;
                 fill(3,200,133);
             }
             if(counter == 2){
-                particles.add(new Particle(mouseX, mouseY, choice));
+                particles.add(new Particle(this, mouseX, mouseY, choice));
             }
         }
 
@@ -49,61 +49,5 @@ import java.util.*;
         for(Particle particle :particles) {
             particle.render(choice);
             particle.collision();
-        }
-    }
-
-    private class Particle {
-        private float radius;
-        private float xPosition;
-        private float yPosition;
-        private float xVelocity;
-        private float yVelocity;
-
-        Particle(float xPosition, float yPosition, int choiceColor) {
-            this.radius = radius = 5;
-            this.xPosition = xPosition;
-            this.yPosition = yPosition;
-            this.xVelocity = (float) 0.98;
-            this.yVelocity = 0;
-            fill(255, choiceColor, 30);
-        }
-
-        void render(int choice) {
-            float particleDiameter = radius * 2;
-
-            if (choice == 0) {
-                fill(choice, 255, 28);
-            }
-            if (choice == 1) {
-                fill(0, 100, 10);
-            }
-
-            ellipse(xPosition, yPosition, particleDiameter, particleDiameter);
-            yVelocity += .098;
-
-            yPosition = yPosition + yVelocity;
-            //x=x+velocityX;
-
-        }
-
-        void collision() {
-            if (yPosition > 550) {
-                yPosition = 550;
-                yVelocity = 0;
-                yVelocity *= -1;
-            }
-
-            if (xPosition < 50) {
-                xPosition = 50;
-                xVelocity = (float) .5;
-                xVelocity *= -1;
-            }
-
-            if (xPosition > 650) {
-                xPosition = 650;
-                xVelocity -= .5;
-                xVelocity *= -1;
-            }
-
         }
     }

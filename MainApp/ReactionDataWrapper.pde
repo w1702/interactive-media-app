@@ -1,7 +1,7 @@
 import java.util.*;
 
-public class ReactionDecider {
-    // A map of possible reactions 
+public class ReactionData {
+    // A map of possible reactions
     private final Map<String, Map<String, String>> reactions;
 
     /**
@@ -18,7 +18,7 @@ public class ReactionDecider {
      * BLUE  |       BLUE-RED        BLUE-GREEN      NONE
      *
      */
-    ReactionDecider(){
+    ReactionData(){
         final String ELEMENT_1 = "Red";
         final String ELEMENT_2 = "Green";
         final String ELEMENT_3 = "Blue";
@@ -55,17 +55,8 @@ public class ReactionDecider {
      * @return a String representation of the reaction
      */
     public String getReaction(String element1, String element2){
-        for (String firstElement : reactions.keySet()) {
-            if(firstElement.equalsIgnoreCase(element1)){
-                Map<String, String> innerMap = reactions.get(firstElement);
-                for (String secondElement : innerMap.keySet()) {
-                    if(secondElement.equalsIgnoreCase(element2)){
-                        return innerMap.get(secondElement);
-                    }
-                }
-            }
-        }
-        return null;
+        Map<String, String> innerMap = reactions.get(element1);
+        return innerMap.get(element2);
     }
 }
 
