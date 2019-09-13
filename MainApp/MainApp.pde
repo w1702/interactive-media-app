@@ -1,6 +1,6 @@
-    private List<Particle> particles;
+private List<Particle> particles;
+    private String selectedParticleType;
     private int particleOutputController;
-    private String particleType;
 
     public boolean sketchFullScreen(){
         return false;
@@ -8,9 +8,9 @@
 
     public void setup () {
         size(displayWidth, displayHeight);
-        particles = new ArrayList<Particle>();
-        particleType = Particle.PARTICLE_TYPE_RED; // PLACEHOLDER UNTIL MENU IS WORKING
 
+        particles = new LinkedList<Particle>();
+        selectedParticleType = Particle.PARTICLE_TYPE_GREEN;
         particleOutputController = 0;
     }
 
@@ -18,10 +18,9 @@
         background(1);
 
         //new SaskiasClass().playSounds(particles.size(); //todo: Class to be implemented by Sas'kia
+        //String selectedParticleType = new MatthewsClass().getParticleType()); // todo: Class to be implemented by Matthew
 
-        //setParticleType(new MatthewsClass().getParticleType()); // todo: Class to be implemented by Matthew
-
-        renderSelectedParticleTypeOnMousePress();
+        renderSelectedParticleTypeOnMousePress(selectedParticleType);
     }
 
     // todo: Liam maybe this can be done in a better way?
@@ -31,32 +30,42 @@
         }
     }
 
-    private void renderSelectedParticleTypeOnMousePress(){
+    private void renderSelectedParticleTypeOnMousePress(String selectedParticleType){
         if(mousePressed){
             particleOutputController++;
             setParticleOutputRate(particleOutputController);
 
-            particles.add(new Particle(this, particleType, mouseX, mouseY));
+            particles.add(new Particle(this, selectedParticleType, mouseX, mouseY));
         }
 
-        for(Particle particle :particles) {
-            particle.render(particleType);
+        for(Particle particle : particles) {
+            particle.render(selectedParticleType);
             particle.collision();
         }
     }
 
-    private void setParticleType(String particleType){
-        this.particleType = particleType;
-    }
-
     public void keyPressed(){
         if(key == '1'){
-            setParticleType(Particle.PARTICLE_TYPE_RED);
+            selectedParticleType = Particle.PARTICLE_TYPE_RED;
         }
         if(key == '2'){
-            setParticleType(Particle.PARTICLE_TYPE_GREEN);
+            selectedParticleType = Particle.PARTICLE_TYPE_GREEN;
         }
         if(key == '3'){
-            setParticleType(Particle.PARTICLE_TYPE_BLUE);
+            selectedParticleType = Particle.PARTICLE_TYPE_BLUE;
+        }
+    }
+
+    /**
+     * Remove obsolete particles from the particles list but does not remove them visually //todo: method needs to be tested
+     * @param obsoleteParticles a list of obsolete particles to be deleted from the particles list
+     */
+    public void removeParticles(List<Particle> obsoleteParticles){
+        for (Particle particle : particles) {
+            for (Particle obsoleteParticle : obsoleteParticles) {
+                if(particle.hashCode() == obsoleteParticle.hashCode()){
+                    particles.remove(obsoleteParticle);
+                }
+            }
         }
     }
