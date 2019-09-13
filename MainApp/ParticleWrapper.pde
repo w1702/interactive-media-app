@@ -6,45 +6,64 @@ public class Particle {
     public static final String PARTICLE_TYPE_GREEN = "particleTypeGreen";
     public static final String PARTICLE_TYPE_BLUE = "particleTypeBlue";
 
-    private PApplet mainApp;
-    private ReactionData reactionData;
+    private final ReactionData reactionData = new ReactionData();
+    private final PApplet mainApp;
 
-    private float radius;
+    private String particleType;
     private float xPosition;
     private float yPosition;
+    private float radius;
     private float xVelocity;
     private float yVelocity;
 
-    Particle(PApplet mainApp, float xPosition, float yPosition, int choiceColor) {
-        reactionData = new ReactionData();
+    Particle(PApplet mainApp, String particleType, float xPosition, float yPosition) {
         this.mainApp = mainApp;
-        this.radius = 5;
+        this.particleType = particleType;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
-        this.xVelocity = (float) 0.98;
-        this.yVelocity = 0;
 
-        mainApp.fill(255, choiceColor, 30);
+        // Different particleTypes may have different properties
+        if(particleType.equalsIgnoreCase(PARTICLE_TYPE_RED)){
+            this.radius = 5;
+            this.xVelocity = (float) 1.5;
+            this.yVelocity = (float) 0;
+        }
+        if(particleType.equalsIgnoreCase(PARTICLE_TYPE_GREEN)){
+            this.radius = 5;
+            this.xVelocity = (float) 1;
+            this.yVelocity = (float) 0;
+        }
+        if(particleType.equalsIgnoreCase(PARTICLE_TYPE_BLUE)){
+            this.radius = 5;
+            this.xVelocity = (float) 0.5;
+            this.yVelocity = (float) 0;
+        }
     }
 
-    public void render(int choice) {
+    public void render(String particleType) {
+        final float particleDiameter = radius * 2;
 
-        float particleDiameter = radius * 2;
-
-        if (choice == 0) {
-            mainApp.fill(choice, 255, 28);
+        // Set the selected particleType to it's appropriate color
+        if (particleType.equalsIgnoreCase(PARTICLE_TYPE_RED)) {
+            mainApp.fill(255, 0, 0);
         }
-        if (choice == 1) {
-            mainApp.fill(0, 100, 10);
+        if (particleType.equalsIgnoreCase(PARTICLE_TYPE_GREEN)) {
+            mainApp.fill(0, 255, 0);
+        }
+        if (particleType.equalsIgnoreCase(PARTICLE_TYPE_BLUE)) {
+            mainApp.fill(0, 0, 255);
         }
 
+        // Draw the selected particleType
         mainApp.ellipse(xPosition, yPosition, particleDiameter, particleDiameter);
-        yVelocity += .098;
 
+        // Increment fall velocity every second
+        yVelocity += .098;
+        // Make the particle fall
         yPosition = yPosition + yVelocity;
-        //x=x+velocityX;
     }
 
+    // todo: Liam, this needs to be refactored
     public void collision() {
         if (yPosition > 550) {
             yPosition = 550;

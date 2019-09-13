@@ -1,54 +1,62 @@
-import java.util.*;
-
     private List<Particle> particles;
-    private int counter;
-    private int choice;
+    private int particleOutputController;
+    private String particleType;
+
+    public boolean sketchFullScreen(){
+        return false;
+    }
 
     public void setup () {
         size(displayWidth, displayHeight);
-
         particles = new ArrayList<Particle>();
-        counter = 0;
-        choice = 0;
+        particleType = Particle.PARTICLE_TYPE_RED; // PLACEHOLDER UNTIL MENU IS WORKING
+
+        particleOutputController = 0;
     }
 
     public void draw() {
         background(1);
 
-        if(mousePressed){
-            counter++;
+        //new SaskiasClass().playSounds(particles.size(); //todo: Class to be implemented by Sas'kia
 
-            if(choice == 0){
-                fill(5,40,233);
-            }
-            if(choice == 1){
-                fill(3,200,133);
-            }
-            if(counter == 2){
-                particles.add(new Particle(this, mouseX, mouseY, choice));
-            }
-        }
+        //setParticleType(new MatthewsClass().getParticleType()); // todo: Class to be implemented by Matthew
 
+        renderSelectedParticleTypeOnMousePress();
+    }
+
+    // todo: Liam maybe this can be done in a better way?
+    private void setParticleOutputRate(int counter){
         if(counter == 3){
-            counter = 0;
+            this.particleOutputController = 0;
+        }
+    }
+
+    private void renderSelectedParticleTypeOnMousePress(){
+        if(mousePressed){
+            particleOutputController++;
+            setParticleOutputRate(particleOutputController);
+
+            particles.add(new Particle(this, particleType, mouseX, mouseY));
         }
 
         for(Particle particle :particles) {
-            particle.render(choice);
+            particle.render(particleType);
             particle.collision();
         }
     }
 
-    public void keyPressed(){
-        if(keyCode == UP){
-            choice++;
-        }
-        if(keyCode == DOWN){
-            choice--;
-        }
+    private void setParticleType(String particleType){
+        this.particleType = particleType;
     }
 
-    // Sets the app to fullscreen if return true
-    public boolean sketchFullScreen(){
-        return false;
+    public void keyPressed(){
+        if(key == '1'){
+            setParticleType(Particle.PARTICLE_TYPE_RED);
+        }
+        if(key == '2'){
+            setParticleType(Particle.PARTICLE_TYPE_GREEN);
+        }
+        if(key == '3'){
+            setParticleType(Particle.PARTICLE_TYPE_BLUE);
+        }
     }

@@ -1,27 +1,27 @@
 import java.util.*;
 
 public class ReactionData {
-        /* Constant String representations of all the reaction types */
+    /* Constant String representations of all the reaction types */
 
-        // GIVEN two Particles with the SAME Type, Particle1 and Particle2
-        // WHEN Particle1 contacts with Particle2
-        // THEN Particle1 will STACK on top of Particle2
-        public static final String REACTION_TYPE_STACK = "stack";
+    // GIVEN two Particles with the SAME Type, Particle1 and Particle2
+    // WHEN Particle1 contacts with Particle2
+    // THEN Particle1 will STACK on top of Particle2
+    public static final String REACTION_TYPE_STACK = "reactionTypeStack";
 
-        // GIVEN two Particle types, ParticleType1 and ParticleType2
-        // WHEN ParticleType1 contacts with ParticleType2
-        // THEN ParticleType1 AND ALL OTHER Particles (regardless of their type) in the radius of Particle2 will EXPLODE outwards and disappear
-        public static final String REACTION_TYPE_EXPLODE = "explode";
+    // GIVEN two Particle types, ParticleType1 and ParticleType2
+    // WHEN ParticleType1 contacts with ParticleType2
+    // THEN ParticleType1 AND ALL OTHER Particles (regardless of their type) in the radius of Particle2 will EXPLODE outwards and disappear
+    public static final String REACTION_TYPE_EXPLODE = "reactionTypeExplode";
 
-        // GIVEN two Particle types, ParticleType1 and ParticleType2
-        // WHEN ParticleType1 contacts with ParticleType2
-        // THEN ParticleType2 will COLLAPSE and disappear, ParticleType1 remains and will still be subject to gravity
-        public static final String REACTION_TYPE_COLLAPSE = "collapse";
+    // GIVEN two Particle types, ParticleType1 and ParticleType2
+    // WHEN ParticleType1 contacts with ParticleType2
+    // THEN ParticleType2 will COLLAPSE and disappear, ParticleType1 remains and will still be subject to gravity
+    public static final String REACTION_TYPE_COLLAPSE = "reactionTypeCollapse";
 
-        // GIVEN two Particle types, ParticleType1 and ParticleType2
-        // WHEN ParticleType1 contacts with ParticleType2
-        // THEN ParticleType2 will remain in its place and REPEL ParticleType1 upwards, ParticleType1 will eventually stop bouncing and disappear
-        public static final String REACTION_TYPE_REPEL = "repel";
+    // GIVEN two Particle types, ParticleType1 and ParticleType2
+    // WHEN ParticleType1 contacts with ParticleType2
+    // THEN ParticleType2 will remain in its place and REPEL ParticleType1 upwards, ParticleType1 will eventually stop bouncing and disappear
+    public static final String REACTION_TYPE_REPEL = "reactionTypeRepel";
 
     // A map of possible reactions
     private final Map<String, Map<String, String>> reactions;
