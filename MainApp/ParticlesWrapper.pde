@@ -20,8 +20,8 @@ public class Particles {
         }
     }
 
-    public void addNewParticle(String particleType, int mouseX, int mouseY){
-        Particle newParticle = new Particle(mainApp, particleType, mainApp.mouseX, mouseY);
+    public void addNewParticle(String particleType){
+        Particle newParticle = new Particle(mainApp, particleType, mainApp.mouseX, mainApp.mouseY);
         particles.add(newParticle);
 
         List<String> particleTypesTheNewParticleFellOn = particleTypesTheNewParticleFellOn(newParticle);
@@ -74,7 +74,7 @@ public class Particles {
      * Remove obsolete particles from the particles list
      * @param obsoleteParticles a list of obsolete particles to be deleted from the particles list
      */
-    public void removeParticles(List<Particle> obsoleteParticles){
+    private void removeParticles(List<Particle> obsoleteParticles){
         for (Particle particle : particles) {
             for (Particle obsoleteParticle : obsoleteParticles) {
                 if(particle.hashCode() == obsoleteParticle.hashCode()){

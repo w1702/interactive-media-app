@@ -43,7 +43,7 @@ import processing.core.PApplet;
             particleOutputController++;
             setParticleOutputRate(particleOutputController);
 
-            particles.addNewParticle(particleType, mouseX, mouseY);
+            particles.addNewParticle(particleType);
         }
     }
 

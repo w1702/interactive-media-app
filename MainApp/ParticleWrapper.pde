@@ -72,10 +72,6 @@ public class Particle {
         return particleType;
     }
 
-    public void setParticleType(String particleType){
-        this.particleType = particleType;
-    }
-
     public float getXPosition(){
         return xPosition;
     }
