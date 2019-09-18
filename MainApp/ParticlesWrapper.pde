@@ -16,7 +16,7 @@ public class Particles {
 
     public void render(){
         for(Particle particle : particles) {
-            particle.render();
+            particle.render(particle.getParticleType());
         }
     }
 
@@ -88,4 +88,3 @@ public class Particles {
         return particles;
     }
 }
-
