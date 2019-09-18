@@ -35,7 +35,7 @@ public class Particle {
         }
     }
 
-    public void render(String particleType) {
+    public void render() {
         final float particleDiameter = radius * 2;
 
         // Set the selected particleType to it's appropriate color

@@ -49,27 +49,12 @@ import processing.core.PApplet;
 
     public void keyPressed(){
         if(key == '1'){
-//            for (Particle particle : particles.getParticles()) {
-//                if(!(particle.getParticleType().equalsIgnoreCase(Particle.PARTICLE_TYPE_RED))){
-//                    particle.setParticleType(Particle.PARTICLE_TYPE_RED);
-//                }
-//            }
             currentParticleTypeSelection = Particle.PARTICLE_TYPE_RED;
         }
         if(key == '2'){
-//            for (Particle particle : particles.getParticles()) {
-//                if(!(particle.getParticleType().equalsIgnoreCase(Particle.PARTICLE_TYPE_GREEN))) {
-//                    particle.setParticleType(Particle.PARTICLE_TYPE_GREEN);
-//                }
-//            }
             currentParticleTypeSelection = Particle.PARTICLE_TYPE_GREEN;
         }
         if(key == '3'){
-//            for (Particle particle : particles.getParticles()) {
-//                if(!(particle.getParticleType().equalsIgnoreCase(Particle.PARTICLE_TYPE_RED))) {
-//                    particle.setParticleType(Particle.PARTICLE_TYPE_RED);
-//                }
-//            }
             currentParticleTypeSelection = Particle.PARTICLE_TYPE_BLUE;
         }
     }

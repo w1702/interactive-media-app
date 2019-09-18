@@ -16,7 +16,7 @@ public class Particles {
 
     public void render(){
         for(Particle particle : particles) {
-            particle.render(particle.getParticleType());
+            particle.render();
         }
     }
 
