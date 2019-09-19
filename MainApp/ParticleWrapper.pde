@@ -2,9 +2,9 @@ import processing.core.PApplet;
 
 public class Particle {
     /* Constant String representations of all the particle types */
-    public static final String PARTICLE_TYPE_RED = "particleTypeRed";
-    public static final String PARTICLE_TYPE_GREEN = "particleTypeGreen";
-    public static final String PARTICLE_TYPE_BLUE = "particleTypeBlue";
+    public static final String PARTICLE_TYPE_RED = "red";
+    public static final String PARTICLE_TYPE_GREEN = "green";
+    public static final String PARTICLE_TYPE_BLUE = "blue";
 
     private final PApplet mainApp;
 
@@ -61,7 +61,7 @@ public class Particle {
         // Make the particle fall
         yPosition = yPosition + yVelocity;
 
-        // todo: investigate why 850 works but not displayHeight of 900
+        // todo: investigate why we need to - 50 from displayHeight this to work
         if (yPosition > mainApp.displayHeight - 50) {
             yPosition = mainApp.displayHeight - 50 ;
             yVelocity = 0;
@@ -78,5 +78,9 @@ public class Particle {
 
     public float getYPosition(){
         return yPosition;
+    }
+
+    public float getRadius(){
+        return radius;
     }
 }

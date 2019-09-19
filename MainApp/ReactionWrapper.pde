@@ -11,38 +11,39 @@ public class Reaction {
         this.mainApp = mainApp;
     }
 
-    public void react(String fallParticle, List<String> particleTypesTheNewParticleLandsOn){
-        for (String typeTheNewParticleLandsOn : particleTypesTheNewParticleLandsOn) {
-            String reaction = reactionData.getReaction(fallParticle, typeTheNewParticleLandsOn);
+    public void render(Particle primaryParticle, List<Particle> reactingNeighbourParticles){
+        for (Particle reactingNeighbourParticle : reactingNeighbourParticles) {
+
+            String reaction = reactionData.getReaction(primaryParticle.getParticleType(), reactingNeighbourParticle.getParticleType());
 
             if(reaction.equalsIgnoreCase(ReactionData.REACTION_TYPE_STACK)){
-                stack();
+                stack(primaryParticle, reactingNeighbourParticles);
             }
             if(reaction.equalsIgnoreCase(ReactionData.REACTION_TYPE_COLLAPSE)){
-                collapse();
+                collapse(primaryParticle, reactingNeighbourParticles);
             }
             if(reaction.equalsIgnoreCase(ReactionData.REACTION_TYPE_EXPLODE)){
-                explode();
+                explode(primaryParticle, reactingNeighbourParticles);
             }
             if(reaction.equalsIgnoreCase(ReactionData.REACTION_TYPE_REPEL)){
-                repel();
+                repel(primaryParticle, reactingNeighbourParticles);
             }
         }
     }
 
-    private void stack(){
-
+    private void stack(Particle primaryParticle, List<Particle> reactingNeighbourParticles){
+        System.out.println(ReactionData.REACTION_TYPE_STACK);
     }
 
-    private void collapse(){
-
+    private void collapse(Particle primaryParticle, List<Particle> reactingNeighbourParticles){
+        System.out.println(ReactionData.REACTION_TYPE_COLLAPSE);
     }
 
-    private void explode(){
-
+    private void explode(Particle primaryParticle, List<Particle> reactingNeighbourParticles){
+        System.out.println(ReactionData.REACTION_TYPE_EXPLODE);
     }
 
-    private void repel(){
-
+    private void repel(Particle primaryParticle, List<Particle> reactingNeighbourParticles){
+        System.out.println(ReactionData.REACTION_TYPE_REPEL);
     }
 }

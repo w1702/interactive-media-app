@@ -17,15 +17,15 @@ import processing.core.PApplet;
         size(displayWidth, displayHeight);
 
         particles = new Particles(this);
-        currentParticleTypeSelection = Particle.PARTICLE_TYPE_GREEN;
+        currentParticleTypeSelection = Particle.PARTICLE_TYPE_RED;
         particleOutputController = 0;
     }
 
     public void draw() {
         background(1);
 
-        //new SaskiasClass().playSounds(particles.size(); //todo: Class to be implemented by Sas'kia
-        //String selectedParticleType = new MatthewsClass().getParticleType()); // todo: Class to be implemented by Matthew
+        //saskiasClass.playSounds(particles.size(); //todo: Class to be implemented by Sas'kia
+        //String selectedParticleType = matthewsClass().getParticleType()); // todo: Class to be implemented by Matthew
 
         drawNewParticleOnMousePress(currentParticleTypeSelection);
         particles.render();
@@ -56,6 +56,11 @@ import processing.core.PApplet;
         }
         if(key == '3'){
             currentParticleTypeSelection = Particle.PARTICLE_TYPE_BLUE;
+        }
+
+        // todo: remove this after testing
+        if(key == '4'){
+            particles.addNewParticle(Particle.PARTICLE_TYPE_RED);
         }
     }
 
