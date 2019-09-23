@@ -1,71 +1,74 @@
-private List<Particle> particles;
-    private String selectedParticleType;
+import processing.core.PApplet;
+
+
+//    private final Sounds sounds = new Sounds(this);
+    private final Menu menu = new Menu(this);
+    private final Particles particles = new Particles(this);
+
+    private String currentParticleSelection;
     private int particleOutputController;
 
-    public boolean sketchFullScreen(){
-        return false;
+    public static void main(String[] args){
+        PApplet.main("MainApp", args);
     }
+
+//    public boolean sketchFullScreen(){
+//        return false;
+//    }
 
     public void setup () {
         size(displayWidth, displayHeight);
 
-        particles = new LinkedList<Particle>();
-        selectedParticleType = Particle.PARTICLE_TYPE_GREEN;
+        // Default selection
+        currentParticleSelection = Particle.PARTICLE_TYPE_RED;
         particleOutputController = 0;
     }
 
     public void draw() {
         background(1);
+        particles.setParticleLimit(5000);
+//        sounds.playBackgroundMusic();
 
-        //new SaskiasClass().playSounds(particles.size(); //todo: Class to be implemented by Sas'kia
-        //String selectedParticleType = new MatthewsClass().getParticleType()); // todo: Class to be implemented by Matthew
+        menu.render();
+        if(menu.listenForSelection() != null){
+            currentParticleSelection = menu.listenForSelection();
+        }
 
-        renderSelectedParticleTypeOnMousePress(selectedParticleType);
+        drawNewParticleOnMousePress(currentParticleSelection);
+        particles.render();
     }
 
-    // todo: Liam maybe this can be done in a better way?
+    public void keyPressed(){
+        if(key == '1'){
+            currentParticleSelection = Particle.PARTICLE_TYPE_RED;
+        }
+        if(key == '2'){
+            currentParticleSelection = Particle.PARTICLE_TYPE_GREEN;
+        }
+        if(key == '3'){
+            currentParticleSelection = Particle.PARTICLE_TYPE_BLUE;
+        }
+
+        // todo: remove this after testing
+        // for testing purposes, creates ONE particle
+        if(key == '4'){
+            particles.addNewParticle(Particle.PARTICLE_TYPE_RED);
+        }
+    }
+
+    // todo: can this can be done in a better way?
     private void setParticleOutputRate(int counter){
         if(counter == 3){
             this.particleOutputController = 0;
         }
     }
 
-    private void renderSelectedParticleTypeOnMousePress(String selectedParticleType){
+    private void drawNewParticleOnMousePress(String particleType){
         if(mousePressed){
             particleOutputController++;
             setParticleOutputRate(particleOutputController);
 
-            particles.add(new Particle(this, selectedParticleType, mouseX, mouseY));
-        }
-
-        for(Particle particle : particles) {
-            particle.render(selectedParticleType);
-            particle.collision();
+            particles.addNewParticle(particleType);
         }
     }
 
-    public void keyPressed(){
-        if(key == '1'){
-            selectedParticleType = Particle.PARTICLE_TYPE_RED;
-        }
-        if(key == '2'){
-            selectedParticleType = Particle.PARTICLE_TYPE_GREEN;
-        }
-        if(key == '3'){
-            selectedParticleType = Particle.PARTICLE_TYPE_BLUE;
-        }
-    }
-
-    /**
-     * Remove obsolete particles from the particles list but does not remove them visually //todo: method needs to be tested
-     * @param obsoleteParticles a list of obsolete particles to be deleted from the particles list
-     */
-    public void removeParticles(List<Particle> obsoleteParticles){
-        for (Particle particle : particles) {
-            for (Particle obsoleteParticle : obsoleteParticles) {
-                if(particle.hashCode() == obsoleteParticle.hashCode()){
-                    particles.remove(obsoleteParticle);
-                }
-            }
-        }
-    }
