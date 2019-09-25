@@ -5,10 +5,12 @@ import java.util.List;
 public class Reactions {
     private final PApplet mainApp;
 
+    private final Particles particles;
     private final ReactionData reactionData = new ReactionData();
 
-    Reactions(PApplet mainApp){
+    Reactions(PApplet mainApp, Particles particles){
         this.mainApp = mainApp;
+        this.particles = particles;
     }
 
     public void render(Particle primaryParticle, List<Particle> reactingNeighbourParticles){
@@ -40,8 +42,12 @@ public class Reactions {
         }
     }
 
+    // todo: fix this ConcurrentModificationException
     private void collapse(Particle primaryParticle, List<Particle> reactingNeighbourParticles){
-//        System.out.println(ReactionData.REACTION_TYPE_COLLAPSE);
+//        for (Particle reactingNeighbourParticle : reactingNeighbourParticles) {
+//            reactingNeighbourParticle.collapse();
+//            particles.removeParticle(reactingNeighbourParticle);
+//        }
     }
 
     private void explode(Particle primaryParticle, List<Particle> reactingNeighbourParticles){

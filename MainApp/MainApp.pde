@@ -1,7 +1,7 @@
 import processing.core.PApplet;
 
 
-//    private final Sounds sounds = new Sounds(this);
+    //private final Sounds sounds = new Sounds(this);
     private final Menu menu = new Menu(this);
     private final Particles particles = new Particles(this);
 
@@ -26,7 +26,7 @@ import processing.core.PApplet;
 
     public void draw() {
         background(1);
-        particles.setParticleLimit(5000);
+        particles.setParticleLimit(4000);
 //        sounds.playBackgroundMusic();
 
         menu.render();

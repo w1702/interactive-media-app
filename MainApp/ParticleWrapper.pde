@@ -70,6 +70,10 @@ public class Particle {
         }
     }
 
+    public void collapse(){
+        this.radius = radius * 4;
+    }
+
     public String getParticleType(){
         return particleType;
     }

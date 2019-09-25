@@ -1,6 +1,7 @@
 import processing.core.PApplet;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Particles {
@@ -11,7 +12,7 @@ public class Particles {
 
     Particles(PApplet mainApp){
         this.mainApp = mainApp;
-        reactions = new Reactions(mainApp);
+        reactions = new Reactions(mainApp, this);
     }
 
     public void render(){
@@ -21,7 +22,6 @@ public class Particles {
 
             // Make particles react with their neighbours
             List<Particle> neighbourParticles = getNeighbourParticles(particle);
-            // todo: do particles need to be stationary?
             reactions.render(particle, neighbourParticles);
         }
     }
@@ -65,28 +65,12 @@ public class Particles {
 
     /**
      * Remove a single obsolete particle from the particles list
-     * Use this method if only removing a single particle as it is more efficient than removing a list at once
      * @param obsoleteParticle the obsolete particle
      */
-    private void removeParticle(Particle obsoleteParticle){
-        for (Particle particle : particles) {
-            if(particle.equals(obsoleteParticle)){
-                particles.remove(obsoleteParticle);
-            }
-        }
-    }
-
-    /**
-     * Remove a list of obsolete particles from the particles list
-     * Use this for removing multiple particles at once, it efficient than removing a single particle at a time but necessary for some reactions
-     * @param obsoleteParticles a list of obsolete particles to be deleted from the particles list
-     */
-    private void removeParticles(List<Particle> obsoleteParticles){
-        for (Particle particle : particles) {
-            for (Particle obsoleteParticle : obsoleteParticles) {
-                if(particle.equals(obsoleteParticle)){
-                    particles.remove(obsoleteParticle);
-                }
+    public void removeParticle(Particle obsoleteParticle){
+        for (Iterator<Particle> it = particles.iterator(); it.hasNext(); ){
+            if(it.next().equals(obsoleteParticle)){
+                it.remove();
             }
         }
     }
