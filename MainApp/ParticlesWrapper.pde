@@ -43,7 +43,7 @@ public class Particles {
     }
 
     /**
-     * Get the neighbour particles in contact with the given @param particle
+     * Get the neighbour particles in contact with the given particle
      * @param primaryParticle the Particle to get the neighbours of
      */
     public List<Particle> getNeighbourParticles(Particle primaryParticle){
@@ -51,7 +51,6 @@ public class Particles {
         // because this loops over all the particles, it will also include the primary particle
 
         for (Particle particle : particles) {
-            // todo: check if this is needed here
             if(particle.equals(primaryParticle)){
                 continue;
             }
@@ -87,5 +86,9 @@ public class Particles {
 
     public List<Particle> getParticlesToDelete(){
         return particlesToDelete;
+    }
+
+    public List<Particle> getParticles(){
+        return particles;
     }
 }

@@ -6,11 +6,14 @@ import processing.core.PApplet;
 public class Particle {
     private final PApplet mainApp;
 
+    private final float acceleration = 0.1f;
+
     private String type;
     private float xPosition;
     private float yPosition;
     private float radius;
     private float yVelocity;
+    private boolean falling;
 
     Particle(PApplet mainApp, String particleType, float xPosition, float yPosition) {
         this.mainApp = mainApp;
@@ -31,6 +34,8 @@ public class Particle {
             this.radius = 5;
             this.yVelocity = (float) 1;
         }
+
+        falling = true;
     }
 
     public void render() {
@@ -50,21 +55,22 @@ public class Particle {
         // Draw the selected particleType
         mainApp.ellipse(xPosition, yPosition, particleDiameter, particleDiameter);
 
-        simulateFalling();
+        if(falling) {
+            simulateFalling();
+        }
     }
 
     private void simulateFalling() {
-        if(yVelocity > 0) {
-            // Increment fall velocity every second
-            yVelocity += .1;
-            // Make the particle fall
-            yPosition = yPosition + yVelocity;
+        // Increment fall velocity every second
+        yVelocity += acceleration;
+        // Make the particle fall
+        yPosition = yPosition + yVelocity;
 
-            // todo: investigate why we need to - 50 from displayHeight this to work
-            if (yPosition > mainApp.displayHeight - 50) {
-                yPosition = mainApp.displayHeight - 50;
-                yVelocity = 0;
-            }
+        // todo: investigate why we need to - 50 from displayHeight this to work
+        if (yPosition > mainApp.displayHeight - 50) {
+            yPosition = mainApp.displayHeight - 50;
+            //yVelocity = 0;
+            falling = false;
         }
     }
 
@@ -84,8 +90,12 @@ public class Particle {
         return xPosition;
     }
 
-    public float getYPosition(){
+    public float getYPosition() {
         return yPosition;
+    }
+
+    public void setYPosition(float yPosition) {
+        this.yPosition = yPosition;
     }
 
     public float getRadius(){
@@ -98,5 +108,17 @@ public class Particle {
 
     public void setYVelocity(float yVelocity){
         this.yVelocity = yVelocity;
+    }
+
+    public boolean getFalling(){
+        return falling;
+    }
+
+    public void setFalling(boolean falling){
+        this.falling = falling;
+    }
+
+    public float getAcceleration(){
+        return acceleration;
     }
 }

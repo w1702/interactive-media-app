@@ -60,9 +60,13 @@ import processing.core.PApplet;
             currentParticleSelection = Particles.PARTICLE_TYPE_BLUE;
         }
 
+        // deletes all particles
+        if(key == '4'){
+            particles.removeParticles(particles.getParticles());
+        }
         // todo: remove this after testing
         // for testing purposes, creates ONE particle
-        if(key == '4'){
+        if(key == '5'){
             particles.addNewParticle(Particles.PARTICLE_TYPE_RED);
         }
     }
