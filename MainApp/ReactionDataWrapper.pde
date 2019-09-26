@@ -1,5 +1,9 @@
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
+/**
+ * This class purely contains data about how different particle types react to each other
+ */
 public class ReactionData {
     /* Constant String representations of all the reaction types */
 
@@ -24,12 +28,10 @@ public class ReactionData {
     public static final String REACTION_TYPE_REPEL = "repel";
 
     // A map of possible reactions
-    private final Map<String, Map<String, String>> reactions;
+    private final Map<String, Map<String, String>> reactions = initialiseReactionData();
 
     /**
-     * Constructor method, initialise class fields
-     *
-     * Reactions Matrix
+     * Initialise Reactions Matrix
      *
      *              RED             GREEN           BLUE
      *        ---------------------------------------------------
@@ -40,30 +42,32 @@ public class ReactionData {
      * BLUE  |       COLLAPSE        EXPLODE        STACK
      *
      */
-    ReactionData(){
+    private Map<String, Map<String, String>> initialiseReactionData(){
         // Initialise red row of the matrix
         Map<String, String> redRow = new HashMap<String, String>();
-        redRow.put(Particle.PARTICLE_TYPE_RED,  REACTION_TYPE_STACK);
-        redRow.put(Particle.PARTICLE_TYPE_GREEN,  REACTION_TYPE_REPEL);
-        redRow.put(Particle.PARTICLE_TYPE_BLUE, REACTION_TYPE_COLLAPSE);
+        redRow.put(Particles.PARTICLE_TYPE_RED,  REACTION_TYPE_STACK);
+        redRow.put(Particles.PARTICLE_TYPE_GREEN,  REACTION_TYPE_REPEL);
+        redRow.put(Particles.PARTICLE_TYPE_BLUE, REACTION_TYPE_COLLAPSE);
 
         // Initialise green row of the matrix
         Map<String, String> greenRow = new HashMap<String, String>();
-        greenRow.put(Particle.PARTICLE_TYPE_RED, REACTION_TYPE_REPEL);
-        greenRow.put(Particle.PARTICLE_TYPE_GREEN, REACTION_TYPE_STACK);
-        greenRow.put(Particle.PARTICLE_TYPE_BLUE, REACTION_TYPE_EXPLODE);
+        greenRow.put(Particles.PARTICLE_TYPE_RED, REACTION_TYPE_REPEL);
+        greenRow.put(Particles.PARTICLE_TYPE_GREEN, REACTION_TYPE_STACK);
+        greenRow.put(Particles.PARTICLE_TYPE_BLUE, REACTION_TYPE_EXPLODE);
 
         // Initialise blue row of the matrix
         Map<String, String> blueRow = new HashMap<String, String>();
-        blueRow.put(Particle.PARTICLE_TYPE_RED, REACTION_TYPE_COLLAPSE);
-        blueRow.put(Particle.PARTICLE_TYPE_GREEN, REACTION_TYPE_EXPLODE);
-        blueRow.put(Particle.PARTICLE_TYPE_BLUE, REACTION_TYPE_STACK);
+        blueRow.put(Particles.PARTICLE_TYPE_RED, REACTION_TYPE_COLLAPSE);
+        blueRow.put(Particles.PARTICLE_TYPE_GREEN, REACTION_TYPE_EXPLODE);
+        blueRow.put(Particles.PARTICLE_TYPE_BLUE, REACTION_TYPE_STACK);
 
         // Initialise whole matrix
-        reactions = new HashMap<String, Map<String, String>>();
-        reactions.put(Particle.PARTICLE_TYPE_RED, redRow);
-        reactions.put(Particle.PARTICLE_TYPE_GREEN, greenRow);
-        reactions.put(Particle.PARTICLE_TYPE_BLUE, blueRow);
+        Map<String, Map<String, String>> reactions = new HashMap<String, Map<String, String>>();
+        reactions.put(Particles.PARTICLE_TYPE_RED, redRow);
+        reactions.put(Particles.PARTICLE_TYPE_GREEN, greenRow);
+        reactions.put(Particles.PARTICLE_TYPE_BLUE, blueRow);
+
+        return reactions;
     }
 
     /**

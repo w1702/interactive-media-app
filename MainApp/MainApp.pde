@@ -1,66 +1,89 @@
 import processing.core.PApplet;
 
 
+    //private final Sounds sounds = new Sounds(this);
+    private final Menu menu = new Menu(this);
+    private final Particles particles = new Particles(this);
+
+    private String currentParticleSelection;
+    private int particleOutputController;
+
     public static void main(String[] args){
         PApplet.main("MainApp", args);
     }
 
-    private Particles particles;
-    private String currentParticleTypeSelection;
-    private int particleOutputController;
-
-    public boolean sketchFullScreen(){
-        return false;
-    }
+//    public boolean sketchFullScreen(){
+//        return true;
+//    }
 
     public void setup () {
         size(displayWidth, displayHeight);
 
-        particles = new Particles(this);
-        currentParticleTypeSelection = Particle.PARTICLE_TYPE_RED;
+        // Default selection
+        currentParticleSelection = Particles.PARTICLE_TYPE_RED;
         particleOutputController = 0;
     }
 
+    /**
+     * Runs multiple times per second, will:
+     * - set the background color
+     * - play background sounds
+     * - render the menu and listen for the user's selection
+     * - draw new particles on mouse press
+     * - render all particles, afterwards remove obsolete particles
+     */
     public void draw() {
         background(1);
 
-        //saskiasClass.playSounds(particles.size(); //todo: Class to be implemented by Sas'kia
-        //String selectedParticleType = matthewsClass().getParticleType()); // todo: Class to be implemented by Matthew
+        //        sounds.playBackgroundMusic();
 
-        drawNewParticleOnMousePress(currentParticleTypeSelection);
+        menu.render();
+        if(menu.listenForSelection() != null){
+            currentParticleSelection = menu.listenForSelection();
+        }
+
+        addNewParticleOnMousePress(currentParticleSelection);
+
+        particles.setParticleLimit(4000);
         particles.render();
+        particles.removeParticles(particles.getParticlesToDelete()); // Delete obsolete particles after each render loop
     }
 
-    // todo: Liam maybe this can be done in a better way?
+    public void keyPressed(){
+        if(key == '1'){
+            currentParticleSelection = Particles.PARTICLE_TYPE_RED;
+        }
+        if(key == '2'){
+            currentParticleSelection = Particles.PARTICLE_TYPE_GREEN;
+        }
+        if(key == '3'){
+            currentParticleSelection = Particles.PARTICLE_TYPE_BLUE;
+        }
+
+        // todo: remove this after testing
+        // for testing purposes, creates ONE particle
+        if(key == '4'){
+            particles.addNewParticle(Particles.PARTICLE_TYPE_RED);
+        }
+    }
+
+    // todo: can this can be done in a better way?
+    /**
+     * Sets the rate at which particles get created
+     * @param counter counter to delay particle creation
+     */
     private void setParticleOutputRate(int counter){
         if(counter == 3){
             this.particleOutputController = 0;
         }
     }
 
-    private void drawNewParticleOnMousePress(String particleType){
+    private void addNewParticleOnMousePress(String particleType){
         if(mousePressed){
             particleOutputController++;
             setParticleOutputRate(particleOutputController);
 
             particles.addNewParticle(particleType);
-        }
-    }
-
-    public void keyPressed(){
-        if(key == '1'){
-            currentParticleTypeSelection = Particle.PARTICLE_TYPE_RED;
-        }
-        if(key == '2'){
-            currentParticleTypeSelection = Particle.PARTICLE_TYPE_GREEN;
-        }
-        if(key == '3'){
-            currentParticleTypeSelection = Particle.PARTICLE_TYPE_BLUE;
-        }
-
-        // todo: remove this after testing
-        if(key == '4'){
-            particles.addNewParticle(Particle.PARTICLE_TYPE_RED);
         }
     }
 
