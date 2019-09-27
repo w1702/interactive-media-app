@@ -6,6 +6,10 @@ import processing.core.PApplet;
 /**
  * This class contains the sounds used in the application
  * Done by: Saskia 
+ *
+ * External Library used: Minim
+ * http://code.compartmental.net/tools/minim/
+ * by Damien Di Fede and Anderson Mills
  */
 public class Sounds {
     private final PApplet mainApp;
