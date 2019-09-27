@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * This class represents the menu and listens for the user's changes in particle type selection
+ * Done by: Matthew
  */
 public class Menu {
     private final PApplet mainApp;

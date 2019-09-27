@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * This class represents a collection of all the particles in the application
+ * Done by: William, Liam
  */
 public class Particles {
     /* Constant String representations of all the particle types */

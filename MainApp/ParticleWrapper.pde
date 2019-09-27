@@ -2,6 +2,7 @@ import processing.core.PApplet;
 
 /**
  * This class represents a single particle in the application
+ * Done by: William, Liam
  */
 public class Particle {
     private final PApplet mainApp;

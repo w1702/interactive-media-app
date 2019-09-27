@@ -1,16 +1,20 @@
 import processing.core.PApplet;
 
+/**
+ * This class runs the application
+ * Done by: William, Liam
+ */
 
-    //private final Sounds sounds = new Sounds(this);
+    private final Sounds sounds = new Sounds(this);
     private final Menu menu = new Menu(this);
     private final Particles particles = new Particles(this);
 
     private String currentParticleSelection;
     private int particleOutputController;
 
-    public static void main(String[] args){
-        PApplet.main("MainApp", args);
-    }
+//    public static void main(String[] args){
+//        PApplet.main("MainApp", args);
+//    }
 
 //    public boolean sketchFullScreen(){
 //        return true;
@@ -35,7 +39,7 @@ import processing.core.PApplet;
     public void draw() {
         background(1);
 
-        //        sounds.playBackgroundMusic();
+               sounds.playBackgroundMusic();
 
         menu.render();
         if(menu.listenForSelection() != null){

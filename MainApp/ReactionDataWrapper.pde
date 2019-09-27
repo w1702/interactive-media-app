@@ -3,6 +3,7 @@ import java.util.Map;
 
 /**
  * This class purely contains data about how different particle types react to each other
+ * Done by: William 
  */
 public class ReactionData {
     /* Constant String representations of all the reaction types */
