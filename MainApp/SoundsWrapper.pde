@@ -60,7 +60,9 @@ public class Sounds {
         }
     }
 
-
+    public void playMarbleSound(){
+      marbleDrop.trigger();
+    }
     /**
      * This method plays the application's background sound
      */

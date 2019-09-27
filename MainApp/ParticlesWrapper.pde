@@ -15,12 +15,14 @@ public class Particles {
 
     private final PApplet mainApp;
 
+    private final Sounds sounds;
     private final List<Particle> particles = new ArrayList<Particle>();
     private final Reactions reactions = new Reactions(this);
     private final List<Particle> particlesToDelete = new ArrayList<Particle>();
 
-    Particles(PApplet mainApp){
+    Particles(PApplet mainApp, Sounds sounds){
         this.mainApp = mainApp;
+        this.sounds = sounds;
     }
 
     public void render(){
@@ -31,6 +33,11 @@ public class Particles {
             // Make particles react with their neighbours
             List<Particle> neighbourParticles = getNeighbourParticles(particle);
             reactions.render(particle, neighbourParticles);
+            
+            // todo: Saskia's sound logic - needs to be revised 
+//            if(!particle.getFalling()){
+//              sounds.playMarbleSound();
+//            }
         }
     }
 
