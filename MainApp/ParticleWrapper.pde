@@ -75,14 +75,6 @@ public class Particle {
         }
     }
 
-    // todo: seems to be inconsistent
-    /**
-     * Make an explosion before collapsing
-     */
-    public void collapse(){
-        this.radius = radius * 2;
-    }
-
     public String getType(){
         return type;
     }
@@ -103,13 +95,10 @@ public class Particle {
         return radius;
     }
 
-    public float getYVelocity(){
-        return yVelocity;
+    public void setRadius(float radius){
+        this.radius = radius;
     }
 
-    public void setYVelocity(float yVelocity){
-        this.yVelocity = yVelocity;
-    }
 
     public boolean getFalling(){
         return falling;
@@ -117,9 +106,5 @@ public class Particle {
 
     public void setFalling(boolean falling){
         this.falling = falling;
-    }
-
-    public float getAcceleration(){
-        return acceleration;
     }
 }

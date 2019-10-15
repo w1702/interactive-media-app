@@ -15,14 +15,12 @@ public class Particles {
 
     private final PApplet mainApp;
 
-    private final Sounds sounds;
     private final List<Particle> particles = new ArrayList<Particle>();
     private final Reactions reactions = new Reactions(this);
     private final List<Particle> particlesToDelete = new ArrayList<Particle>();
 
-    Particles(PApplet mainApp, Sounds sounds){
+    Particles(PApplet mainApp){
         this.mainApp = mainApp;
-        this.sounds = sounds;
     }
 
     public void render(){
@@ -33,11 +31,6 @@ public class Particles {
             // Make particles react with their neighbours
             List<Particle> neighbourParticles = getNeighbourParticles(particle);
             reactions.render(particle, neighbourParticles);
-            
-            // todo: Saskia's sound logic - needs to be revised 
-//            if(!particle.getFalling()){
-//              sounds.playMarbleSound();
-//            }
         }
     }
 
@@ -46,8 +39,8 @@ public class Particles {
         particles.add(newParticle);
     }
 
-    public void removeParticles(List<Particle> particlesToDelete){
-        particles.removeAll(particlesToDelete);
+    public void markParticleForDeletion(Particle obsoleteParticle){
+        particlesToDelete.add(obsoleteParticle);
     }
 
     /**
@@ -69,7 +62,6 @@ public class Particles {
         return neighbourParticles;
     }
 
-    // todo: revise logic in this method(particle1.getXPosition(), particle1.getYPosition(), particle2.getXPos
     /**
      * Returns true if two particles are in contact with each other, otherwise returns false
      * @param particle1 the first Particle

@@ -43,25 +43,31 @@ public class Reactions {
 
     private void collapse(Particle primaryParticle, List<Particle> reactingParticles){
         for (Particle reactingParticle : reactingParticles) {
-            particles.getParticlesToDelete().add(reactingParticle);
+            particles.markParticleForDeletion(reactingParticle);
         }
     }
 
     private void explode(Particle primaryParticle, List<Particle> reactingParticles){
-//        System.out.println(ReactionData.REACTION_TYPE_EXPLODE);
+       final float primaryParticleMaximumRadius = primaryParticle.getRadius() * 2;
+       final float reactingParticlesMaximumRadius = reactingParticles.iterator().next().getRadius() * 2;
+       final float explodeSpeed = (float) 0.5;
+
+       primaryParticle.setRadius(primaryParticle.getRadius() + explodeSpeed);
+        for (Particle reactingParticle : reactingParticles) {
+            reactingParticle.setRadius(reactingParticle.getRadius() + explodeSpeed);
+        }
+
+        if(primaryParticle.getRadius() == primaryParticleMaximumRadius){
+            particles.markParticleForDeletion(primaryParticle);
+        }
+        for (Particle reactingParticle : reactingParticles) {
+            if(reactingParticle.getRadius() == reactingParticlesMaximumRadius){
+                particles.markParticleForDeletion(reactingParticle);
+            }
+        }
     }
 
     private void repel(Particle primaryParticle, List<Particle> reactingParticles){
-//        for (Particle reactingParticle : reactingParticles) {
-//            if(reactingParticle.getType().equalsIgnoreCase(Particles.PARTICLE_TYPE_RED) && !primaryParticle.getFalling() && primaryParticle.getYVelocity() == 0){
-//                primaryParticle.setYVelocity((float) (primaryParticle.getYVelocity() + .1));
-//
-//                primaryParticle.setYPosition(primaryParticle.getYPosition() - primaryParticle.getYVelocity());
-//            }
-//        }
-        //primaryParticle.setYVelocity(0);
-        //primaryParticle.setYVelocity(primaryParticle.getYVelocity() + primaryParticle.getAcceleration());
-//        primaryParticle.setYPosition(primaryParticle.getYPosition() - primaryParticle.getYVelocity() + primaryParticle.getAcceleration());
         for (Particle reactingParticle : reactingParticles) {
             reactingParticle.setYPosition(reactingParticle.getYPosition() - 10);
         }

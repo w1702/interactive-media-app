@@ -1,20 +1,23 @@
 import processing.core.PApplet;
 
-/**
- * This class runs the application
- * Done by: William, Liam
- */
+import java.util.List;
 
-    private final Sounds sounds = new Sounds(this);
+
+    /**
+     * This class runs the application
+     * Done by: William, Liam
+     */
+
+//    private final Sounds sounds = new Sounds(this);
     private final Menu menu = new Menu(this);
-    private final Particles particles = new Particles(this, sounds);
+    private final Particles particles = new Particles(this);
 
     private String currentParticleSelection;
     private int particleOutputController;
 
-//    public static void main(String[] args){
-//        PApplet.main("MainApp", args);
-//    }
+    public static void main(String[] args){
+        PApplet.main("MainApp", args);
+    }
 
 //    public boolean sketchFullScreen(){
 //        return true;
@@ -39,9 +42,9 @@ import processing.core.PApplet;
     public void draw() {
         background(1);
 
-        sounds.playBackgroundMusic();
+//        sounds.playBackgroundMusic();
 
-        // Matthew's menu 
+        // Matthew's menu
         menu.render();
         if(menu.listenForSelection() != null){
             currentParticleSelection = menu.listenForSelection();
@@ -51,7 +54,7 @@ import processing.core.PApplet;
 
         particles.setParticleLimit(4000);
         particles.render();
-        particles.removeParticles(particles.getParticlesToDelete()); // Delete obsolete particles after each render loop
+        removeObsoleteParticles(particles.getParticlesToDelete()); // Delete obsolete particles after each render loop
     }
 
     public void keyPressed(){
@@ -67,7 +70,7 @@ import processing.core.PApplet;
 
         // deletes all particles
         if(key == '4'){
-            particles.removeParticles(particles.getParticles());
+            removeObsoleteParticles(particles.getParticles());
         }
         // todo: remove this after testing
         // for testing purposes, creates ONE particle
@@ -94,5 +97,9 @@ import processing.core.PApplet;
 
             particles.addNewParticle(particleType);
         }
+    }
+
+    private void removeObsoleteParticles(List<Particle> obsoleteParticles){
+        particles.getParticles().removeAll(obsoleteParticles);
     }
 
