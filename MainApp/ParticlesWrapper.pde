@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * This class represents a collection of all the particles in the application
+ * Done by: William, Liam
  */
 public class Particles {
     /* Constant String representations of all the particle types */
@@ -12,14 +13,15 @@ public class Particles {
     public static final String PARTICLE_TYPE_GREEN = "green";
     public static final String PARTICLE_TYPE_BLUE = "blue";
 
-    private final PApplet mainApp;
+    public final PApplet mainApp;
 
     private final List<Particle> particles = new ArrayList<Particle>();
-    private final Reactions reactions = new Reactions(this);
+    private final Reactions reactions;
     private final List<Particle> particlesToDelete = new ArrayList<Particle>();
 
     Particles(PApplet mainApp){
         this.mainApp = mainApp;
+        reactions = new Reactions(mainApp, this);
     }
 
     public void render(){
@@ -38,8 +40,8 @@ public class Particles {
         particles.add(newParticle);
     }
 
-    public void removeParticles(List<Particle> particlesToDelete){
-        particles.removeAll(particlesToDelete);
+    public void markParticleForDeletion(Particle obsoleteParticle){
+        particlesToDelete.add(obsoleteParticle);
     }
 
     /**
@@ -61,7 +63,6 @@ public class Particles {
         return neighbourParticles;
     }
 
-    // todo: revise logic in this method(particle1.getXPosition(), particle1.getYPosition(), particle2.getXPos
     /**
      * Returns true if two particles are in contact with each other, otherwise returns false
      * @param particle1 the first Particle
